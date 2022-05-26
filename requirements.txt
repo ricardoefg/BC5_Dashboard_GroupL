@@ -11,6 +11,5 @@ plotly
 yfinance
 pandas_ta
 sklearn
-itertools
 requests
 streamlit
