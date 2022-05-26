@@ -7,7 +7,6 @@ dash-daq
 dash-bootstrap-components
 numpy
 pandas
-math
 plotly
 yfinance
 pandas_ta
