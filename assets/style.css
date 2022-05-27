@@ -78,11 +78,11 @@ font-weight: bold;
 
 .box_comment {
   border-radius: 20px;
-  background-color: #89B7D3;
+  background-color: #8e8bd8;
   margin: 10px;
   padding: 10px;
   box-shadow: 2px 2px 2px lightgrey;
-  font-size: small;
+  font-size: 20px;
   text-align: center;
   font-family: system-ui;
 }
