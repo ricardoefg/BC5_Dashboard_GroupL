@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon May 16 11:14:06 2022
-
-@author: anare
-"""
-
 # IMPORTS
 # -------------------------------------------------------------------------------------
 from numpy import array
@@ -196,7 +189,7 @@ fig_overall = px.treemap(ovr,
                  color_continuous_midpoint=0
                  )
 
-fig_overall.update_layout(title_text='Market Cap', title_x=0.5)
+fig_overall.update_layout(title_text='Market Cap', title_x=0.5, font_size=15)
 fig_overall.update_layout(margin = dict(t=50, l=25, r=25, b=25))
 fig_overall.data[0]['textfont']['size'] = 15
 
@@ -592,7 +585,7 @@ card_content_rmse = [
 ]
 
 card_content_lr = [
-    dbc.CardHeader("NEXT 24H PRICE PREDICTION ($)"),
+    dbc.CardHeader("NEXT 24H PRICE PREDICTION (USD)"),
     dbc.CardBody(
         [
             html.H5(round(model_lr[-1], 2), className="card-title"),
@@ -817,20 +810,38 @@ def render_page_content(pathname):
         return [
             # html.H1('Price Evolution',
             #        style={'textAlign':'center'}),
-            dcc.Graph(id='progress_graph', className='box')
+            dcc.Graph(id='progress_graph', className='box'),
+                        dbc.Col(
+            html.Div([
+                            html.P('The prices of Cryptocurrencies changed throughout time and here you have the opportunity to see these changes and compare the evolution among different time periods. Try it out!',style={'text-align':'center'})
+                        ]
+
+        ,className='box_comment'), width={"size": 10, "offset": 1})
              
         ]
     elif pathname == "/page-2":
         return [
             # html.H1('Momentum',
             #        style={'textAlign':'center'}),
-            dcc.Graph(id='rsi_graph', className='box')
+            dcc.Graph(id='rsi_graph', className='box'),
+                        dbc.Col(
+            html.Div([
+                            html.P('Relative Strength Index is widely used in trading because it is a momentum oscillator and can give insights into when to buy and sell given the RSI classification. Above 70 it means the asset is overbought and below 30 it means that it is oversold. With this in mind, the price will likely drop when RSI is above 70 and the opposite when RSI is below 30.',style={'text-align':'center'})
+                        ]
+
+        ,className='box_comment'), width={"size": 10, "offset": 1})
         ]
     elif pathname == "/page-3":
         return [
             # html.H1('Trend',
             #        style={'textAlign':'center'}),
-            dcc.Graph(id='macd_graph', className='box')
+            dcc.Graph(id='macd_graph', className='box'),
+                        dbc.Col(
+            html.Div([
+                            html.P('Moving Average Convergence Divergence provides relevant information in terms of the crossovers in the market - when to buy, sell or hold. MACD uses the moving averages principle to reach its results, which means it uses the previous days values to predict the current one. Besides this, we have two signals (slow and fast) that allow us to forecast the next trends in the market.',style={'text-align':'center'})
+                        ]
+
+        ,className='box_comment'), width={"size": 10, "offset":1})
         ]
     elif pathname == "/page-4":
         return [
@@ -839,8 +850,12 @@ def render_page_content(pathname):
             
             cards_price_pred,
             dcc.Graph(id='predicted_graph', className='box'),
+            dbc.Col(
+            html.Div([
+                            html.P('Here we can see the predicted price for the next 24 hours for the selected coin as well as the performance of our model, reflected on the Root-Mean-Squared Deviation.',style={'text-align':'center'})
+                        ]
 
-        ]
+        ,className='box_comment'), width={"size": 10, "offset": 1})]
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
