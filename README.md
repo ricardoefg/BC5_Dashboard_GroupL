@@ -25,5 +25,6 @@ Spyder and the visualizations were all
 constructed using Plotly, a dash 
 package.
 
+Below, we see a screenshot of the dashboard's first page:
 ![My Image](Images/Imagem1.png)
 
