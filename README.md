@@ -15,5 +15,15 @@ dashboard are included predictions on the cryptocurrency’s prices for the next
 and, to keep the dashboard as complete as possible, two technical indicators were 
 also included.
 
+Given that no data was provided in this project, all the data presented in the dashboard 
+is updated on a daily basis using yfinance, a tool that allows to extract of data in realtime. Note we only used a one-year period to create our dashboard and visualizations. 
+Besides that, our dashboard focuses only on the ten cryptocurrencies studied in the 
+previous work. To extract the market cap values of each coin, we also used yfinance.
+
+To build the dashboard we used 
+Spyder and the visualizations were all 
+constructed using Plotly, a dash 
+package.
+
 ![My Image](Images/Imagem1.png)
 
