@@ -7,3 +7,4 @@ Predicted prices for each cryptocurrency are also included in the dashboard
 We also performed a technical analysis to evaluate the momentum and the trend
 
 ![My Image](Imagem2.png)
+
