@@ -6,4 +6,4 @@ The dashboard contains data updated in real-time, using yfinance
 Predicted prices for each cryptocurrency are also included in the dashboard
 We also performed a technical analysis to evaluate the momentum and the trend
 
-![alt text](http://bc5-group-l.herokuapp.com/to/img.png)
+![My Image](Imagem2.png)
