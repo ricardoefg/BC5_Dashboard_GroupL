@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon May 16 11:14:06 2022
-
-@author: anare
-"""
-
 # IMPORTS
 # -------------------------------------------------------------------------------------
 from numpy import array
@@ -731,7 +724,7 @@ card_content10 = [
     dbc.CardHeader("TERRA ($)"),
     dbc.CardBody(
         [
-            html.H5(round((TERRA['Close'][-1]), 2), className="card-title", style={"text-align": "center"}),
+            html.H5(round((TERRA['Close'][-1]), 5), className="card-title", style={"text-align": "center"}),
             html.P(
                 round((TERRA['change_close'][-1]), 3).astype(str) + '%',
                 className="card-text", style={"text-align": "center", 'color': 'purple'}
