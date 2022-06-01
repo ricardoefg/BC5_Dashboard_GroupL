@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May 16 11:14:06 2022
+
+@author: anare
+"""
+
 # IMPORTS
 # -------------------------------------------------------------------------------------
 from numpy import array
@@ -91,6 +98,7 @@ def generate_dataset(coin):
     data = yf.Ticker(coin).history(period='1y')[['Close', 'Open', 'High', 'Volume', 'Low']]
     data['change_close'] = data['Close'].pct_change()
     data['change_close'] = data['change_close']*100
+    
     return data
 
 #Creating the datasets
@@ -463,111 +471,111 @@ train_data, test_data = closedf[0:training_size,
 # convert an array of values into a dataset matrix
 
 
-def create_dataset(dataset, time_step=1):
-    dataX, dataY = [], []
-    for i in range(len(dataset)-time_step-1):
-        a = dataset[i:(i+time_step), 0]  # i=0, 0,1,2,3-----99   100
-        dataX.append(a)
-        dataY.append(dataset[i + time_step, 0])
-    return np.array(dataX), np.array(dataY)
+#def create_dataset(dataset, time_step=1):
+#    dataX, dataY = [], []
+#    for i in range(len(dataset)-time_step-1):
+#        a = dataset[i:(i+time_step), 0]  # i=0, 0,1,2,3-----99   100
+#        dataX.append(a)
+#        dataY.append(dataset[i + time_step, 0])
+#    return np.array(dataX), np.array(dataY)
 
 
-time_step = 15
-X_train, y_train = create_dataset(train_data, time_step)
-X_test, y_test = create_dataset(test_data, time_step)
+#time_step = 15
+#X_train, y_train = create_dataset(train_data, time_step)
+#X_test, y_test = create_dataset(test_data, time_step)
 
-model_lr = LinearRegression()
-model_lr.fit(X_train, y_train)
+#model_lr = LinearRegression()
+#model_lr.fit(X_train, y_train)
 
-predictions = model_lr.predict(X_test)
+#predictions = model_lr.predict(X_test)
 
-train_predict = model_lr.predict(X_train)
-test_predict = model_lr.predict(X_test)
+#train_predict = model_lr.predict(X_train)
+#test_predict = model_lr.predict(X_test)
 
-train_predict = train_predict.reshape(-1, 1)
-test_predict = test_predict.reshape(-1, 1)
+#train_predict = train_predict.reshape(-1, 1)
+#test_predict = test_predict.reshape(-1, 1)
 
 # RMSE
-rmse_lr = round(math.sqrt(mean_squared_error(y_test, test_predict)), 4)
+#rmse_lr = round(math.sqrt(mean_squared_error(y_test, test_predict)), 4)
 
 # Transform back to original form
 
-train_predict = scaler.inverse_transform(train_predict)
-test_predict = scaler.inverse_transform(test_predict)
-original_ytrain = scaler.inverse_transform(y_train.reshape(-1, 1))
-original_ytest = scaler.inverse_transform(y_test.reshape(-1, 1))
+#train_predict = scaler.inverse_transform(train_predict)
+#test_predict = scaler.inverse_transform(test_predict)
+#original_ytrain = scaler.inverse_transform(y_train.reshape(-1, 1))
+#original_ytest = scaler.inverse_transform(y_test.reshape(-1, 1))
 
 # shift train predictions for plotting
 
-look_back = time_step
-trainPredictPlot = np.empty_like(closedf)
-trainPredictPlot[:, :] = np.nan
-trainPredictPlot[look_back:len(train_predict)+look_back, :] = train_predict
+#look_back = time_step
+#trainPredictPlot = np.empty_like(closedf)
+#trainPredictPlot[:, :] = np.nan
+#trainPredictPlot[look_back:len(train_predict)+look_back, :] = train_predict
 
 # shift test predictions for plotting
-testPredictPlot = np.empty_like(closedf)
-testPredictPlot[:, :] = np.nan
-testPredictPlot[len(train_predict)+(look_back*2) +
-                1:len(closedf)-1, :] = test_predict
+#testPredictPlot = np.empty_like(closedf)
+#testPredictPlot[:, :] = np.nan
+#testPredictPlot[len(train_predict)+(look_back*2) +
+#                1:len(closedf)-1, :] = test_predict
 
-names = cycle(['Original close price',
-              'Train predicted close price', 'Test predicted close price'])
-
-
-plotdf = pd.DataFrame({'date': close_stock['Date'],
-                       'original_close': close_stock['close'],
-                       'train_predicted_close': trainPredictPlot.reshape(1, -1)[0].tolist(),
-                       'test_predicted_close': testPredictPlot.reshape(1, -1)[0].tolist()})
-
-fig_pred = px.line(plotdf, x=plotdf['date'], y=[plotdf['original_close'], plotdf['train_predicted_close'],
-                                                plotdf['test_predicted_close']],
-                   labels={'value': 'Close Price', 'date': 'Date'})
-fig_pred.update_layout(title_text='Original Close Price VS Predicted Close Price',
-                       plot_bgcolor='white', font_size=15, font_color='black', legend_title_text='Close Price')
-fig_pred.for_each_trace(lambda t:  t.update(name=next(names)))
-
-fig_pred.update_xaxes(showgrid=False)
-fig_pred.update_yaxes(showgrid=False)
-
-x_input = test_data[len(test_data)-time_step:].reshape(1, -1)
-temp_input = list(x_input)
-temp_input = temp_input[0].tolist()
+#names = cycle(['Original close price',
+#              'Train predicted close price', 'Test predicted close price'])
 
 
-lst_output = []
-n_steps = time_step
-i = 0
-pred_days = 1
-while(i < pred_days):
+#plotdf = pd.DataFrame({'date': close_stock['Date'],
+#                       'original_close': close_stock['close'],
+#                       'train_predicted_close': trainPredictPlot.reshape(1, -1)[0].tolist(),
+#                       'test_predicted_close': testPredictPlot.reshape(1, -1)[0].tolist()})
 
-    if(len(temp_input) > time_step):
+#fig_pred = px.line(plotdf, x=plotdf['date'], y=[plotdf['original_close'], plotdf['train_predicted_close'],
+#                                                plotdf['test_predicted_close']],
+#                   labels={'value': 'Close Price', 'date': 'Date'})
+#fig_pred.update_layout(title_text='Original Close Price VS Predicted Close Price',
+#                       plot_bgcolor='white', font_size=15, font_color='black', legend_title_text='Close Price')
+#fig_pred.for_each_trace(lambda t:  t.update(name=next(names)))
 
-        x_input = np.array(temp_input[1:])
+#fig_pred.update_xaxes(showgrid=False)
+#fig_pred.update_yaxes(showgrid=False)
+
+#x_input = test_data[len(test_data)-time_step:].reshape(1, -1)
+#temp_input = list(x_input)
+#temp_input = temp_input[0].tolist()
+
+
+#lst_output = []
+#n_steps = time_step
+#i = 0
+#pred_days = 1
+#while(i < pred_days):
+
+#    if(len(temp_input) > time_step):
+
+#        x_input = np.array(temp_input[1:])
         #print("{} day input {}".format(i,x_input))
-        x_input = x_input.reshape(1, -1)
+#        x_input = x_input.reshape(1, -1)
 
-        yhat = model_lr.predict(x_input)
+#        yhat = model_lr.predict(x_input)
         #print("{} day output {}".format(i,yhat))
-        temp_input.extend(yhat.tolist())
-        temp_input = temp_input[1:]
+#        temp_input.extend(yhat.tolist())
+#        temp_input = temp_input[1:]
 
-        lst_output.extend(yhat.tolist())
-        i = i+1
+#        lst_output.extend(yhat.tolist())
+#        i = i+1
 
-    else:
-        yhat = model_lr.predict(x_input)
+#    else:
+#        yhat = model_lr.predict(x_input)
 
-        temp_input.extend(yhat.tolist())
-        lst_output.extend(yhat.tolist())
+#        temp_input.extend(yhat.tolist())
+#        lst_output.extend(yhat.tolist())
 
-        i = i+1
+#        i = i+1
 
-last_days = np.arange(1, time_step+1)
-day_pred = np.arange(time_step+1, time_step+pred_days+1)
+#last_days = np.arange(1, time_step+1)
+#day_pred = np.arange(time_step+1, time_step+pred_days+1)
 
-model_lr = closedf.tolist()
-model_lr.extend((np.array(lst_output).reshape(-1, 1)).tolist())
-model_lr = scaler.inverse_transform(model_lr).reshape(1, -1).tolist()[0]
+#model_lr = closedf.tolist()
+#model_lr.extend((np.array(lst_output).reshape(-1, 1)).tolist())
+#model_lr = scaler.inverse_transform(model_lr).reshape(1, -1).tolist()[0]
 
 
 # card to display rmse
@@ -575,11 +583,8 @@ card_content_rmse = [
     dbc.CardHeader("ROOT-MEAN-SQUARED DEVIATION"),
     dbc.CardBody(
         [
-            html.H5(rmse_lr, className="card-title"),
-            #html.P(
-            #    round((BITCOIN['change_close'][-1]), 3).astype(str) + '%',
-            #    className="card-text",
-            #),
+#            html.H5(rmse_lr, className="card-title"),
+            
         ], id='rmse_btc'
     ),
 ]
@@ -588,7 +593,7 @@ card_content_lr = [
     dbc.CardHeader("NEXT 24H PRICE PREDICTION (USD)"),
     dbc.CardBody(
         [
-            html.H5(round(model_lr[-1], 2), className="card-title"),
+#            html.H5(round(model_lr[-1], 2), className="card-title"),
             #html.P(
             #    round((BITCOIN['change_close'][-1]), 3).astype(str) + '%',
             #    className="card-text",
@@ -726,7 +731,7 @@ card_content10 = [
     dbc.CardHeader("TERRA ($)"),
     dbc.CardBody(
         [
-            html.H5(round((TERRA['Close'][-1]), 5), className="card-title", style={"text-align": "center"}),
+            html.H5(round((TERRA['Close'][-1]), 2), className="card-title", style={"text-align": "center"}),
             html.P(
                 round((TERRA['change_close'][-1]), 3).astype(str) + '%',
                 className="card-text", style={"text-align": "center", 'color': 'purple'}
